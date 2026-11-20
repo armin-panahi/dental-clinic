@@ -1,62 +1,180 @@
-/* ----- Mobile Bottom Navigation ----- */
+/* =========================================
+   Mobile Floating Navigation
+========================================= */
+
+/* Navigation Container */
 .mobile-nav {
   display: none;
 }
 
+/* =========================================
+   Mobile Responsive Styles
+========================================= */
+
 @media screen and (max-width: 767px) {
+
+  /* Navigation */
   .mobile-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
-    background-color: #fff;
-    border-top: 1px solid #e5e7eb;
-    box-shadow: 0 -4px 20px rgb(0 0 0 / 6%);
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+
+    width: min(440px, calc(100% - 28px));
+    padding: 8px;
+    box-sizing: border-box;
+
+    display: block;
+
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+    border: 1px solid rgba(22, 135, 201, 0.12);
+    border-radius: 24px;
+
+    box-shadow:
+      0 8px 32px rgba(20, 70, 110, 0.10),
+      0 2px 8px rgba(20, 70, 110, 0.04);
+
+    z-index: 1000;
   }
 
+  /* Navigation List */
+  .mobile-nav__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Navigation List Item */
+  .mobile-nav__list-item {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Navigation Link */
   .mobile-nav__item {
+    position: relative;
+
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    color: #888;
+    gap: 4px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 60px;
+    padding: 5px 2px;
+    box-sizing: border-box;
+
+    color: #8293a5;
     text-decoration: none;
-    font-size: 11px;
-    font-weight: 500;
-    transition: color 0.2s ease;
+
+    border-radius: 17px;
+
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+
+    transition:
+      color 0.25s ease,
+      background-color 0.25s ease,
+      transform 0.2s ease;
   }
 
+  /* Icon Wrapper */
   .mobile-nav__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 32px;
+
+    border-radius: 12px;
+
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
   }
 
+  /* SVG Icons */
   .mobile-nav__icon svg {
+    display: block;
+
     width: 22px;
     height: 22px;
+
+    stroke: currentColor;
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
-  .mobile-nav__item.active {
-    color: #1976d2;
+  /* Navigation Labels */
+  .mobile-nav__label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+
+    transition:
+      color 0.25s ease,
+      font-weight 0.25s ease;
   }
 
+  /* Active Navigation Item */
+  .mobile-nav__item.is-active {
+    color: #1687c9;
+  }
+
+  .mobile-nav__item.is-active .mobile-nav__icon {
+    background-color: #e8f5fd;
+    transform: translateY(-1px);
+  }
+
+  .mobile-nav__item.is-active .mobile-nav__label {
+    font-weight: 700;
+  }
+
+  /* Hover Effect */
+  @media (hover: hover) {
+    .mobile-nav__item:not(.is-active):hover {
+      color: #1687c9;
+      background-color: rgba(232, 245, 253, 0.5);
+    }
+  }
+
+  /* Touch Interaction */
   .mobile-nav__item:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
   }
 
-  /* ----- Prevent content from being hidden behind the navigation ----- */
+  /* Keyboard Accessibility */
+  .mobile-nav__item:focus-visible {
+    outline: 2px solid #1687c9;
+    outline-offset: 2px;
+  }
+
+  /* Prevent Content Overlap */
   body {
-    padding-bottom: 75px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+}
+
+/* =========================================
+   Accessibility: Reduced Motion
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav__item,
+  .mobile-nav__icon,
+  .mobile-nav__label {
+    transition: none !important;
   }
 }
