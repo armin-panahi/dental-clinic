@@ -1,0 +1,62 @@
+/* ----- Mobile Bottom Navigation ----- */
+.mobile-nav {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+    background-color: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 20px rgb(0 0 0 / 6%);
+  }
+
+  .mobile-nav__item {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #888;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-nav__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav__icon svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobile-nav__item.active {
+    color: #1976d2;
+  }
+
+  .mobile-nav__item:active {
+    transform: scale(0.95);
+  }
+
+  /* ----- Prevent content from being hidden behind the navigation ----- */
+  body {
+    padding-bottom: 75px;
+  }
+}
